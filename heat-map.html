@@ -1,0 +1,98 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+        
+    <script>
+
+function generate(){
+    var val = $('#values').val();
+    var points = JSON.parse(val);
+
+    Highcharts.chart('container', {
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        allowDrillToNode: true,
+        animationLimit: 1000,
+        dataLabels: {
+            enabled: false
+        },
+        levelIsConstant: false,
+        levels: [{
+            level: 1,
+            dataLabels: {
+                enabled: true
+            },
+            borderWidth: 3
+        }],
+        data: points
+    }],
+    subtitle: {
+        text: 'Click points to drill down.'
+    },
+    title: {
+        text: ''
+    }
+});
+
+     
+}
+  
+    </script>
+</head>
+<body>
+<textarea id="values" rows="10" cols="200">
+[
+    {
+        "id": "0",
+        "name": "Europe",
+        "value": 22,
+        "color": "#90ed7d"
+    },
+    {
+        "id": "1",
+        "name": "Asia",
+        "value": 144,
+        "color": "#434348"
+    },
+    {
+        "id": "2",
+        "name": "Australia",
+        "value": 47,
+        "color": "#f7a35c"
+    },
+    {
+        "id": "3",
+        "name": "Antartica",
+        "value": 110
+    },
+    {
+        "id": "4",
+        "name": "India",
+        "value": 90,
+        "parent": 1
+    },
+    {
+        "id": "5",
+        "name": "Bangladesh",
+        "value": 44,
+        "parent": 1
+    },
+    {
+        "id": "6",
+        "name": "Nepal",
+        "value": 10,
+        "parent": 1
+    }
+]
+    
+</textarea>
+<input type="button" onclick="generate()" value="Generate"></input> 
+<div id="container"></div>
+</body>
+
+</html>
